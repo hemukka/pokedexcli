@@ -2,12 +2,10 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/hemukka/pokedexcli/internal/pokeapi"
 )
 
 func commandMap(config *config) error {
-	resp, err := pokeapi.GetLocationAreas(config.nextURL)
+	resp, err := config.pokeapiClient.GetLocationAreas(config.nextURL)
 	if err != nil {
 		return err
 	}
@@ -26,7 +24,7 @@ func commandMapBack(config *config) error {
 		return fmt.Errorf("you're on the first page")
 	}
 
-	resp, err := pokeapi.GetLocationAreas(config.prevURL)
+	resp, err := config.pokeapiClient.GetLocationAreas(config.prevURL)
 	if err != nil {
 		return err
 	}

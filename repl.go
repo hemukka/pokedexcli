@@ -5,11 +5,18 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	"github.com/hemukka/pokedexcli/internal/pokeapi"
 )
 
-func repl() {
+type config struct {
+	pokeapiClient pokeapi.Client
+	nextURL       string
+	prevURL       string
+}
+
+func repl(config *config) {
 	commands := getCommands()
-	config := &config{}
 
 	reader := bufio.NewScanner(os.Stdin)
 	for {
@@ -31,17 +38,6 @@ func repl() {
 			fmt.Println("Unkown command")
 		}
 	}
-}
-
-type cliCommand struct {
-	name        string
-	description string
-	callback    func(*config) error
-}
-
-type config struct {
-	nextURL string
-	prevURL string
 }
 
 func getCommands() map[string]cliCommand {
@@ -67,6 +63,12 @@ func getCommands() map[string]cliCommand {
 			callback:    commandExit,
 		},
 	}
+}
+
+type cliCommand struct {
+	name        string
+	description string
+	callback    func(*config) error
 }
 
 func cleanInput(text string) []string {
