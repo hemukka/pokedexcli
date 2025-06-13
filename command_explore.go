@@ -2,8 +2,8 @@ package main
 
 import "fmt"
 
-func commandExplore(config *config) error {
-	name := config.locationArea
+func commandExplore(config *config, param string) error {
+	name := param
 	if name == "" {
 		return fmt.Errorf("argument missing: location area name")
 	}

@@ -12,6 +12,7 @@ func main() {
 			5*time.Second,
 			5*time.Minute,
 		),
+		pokedex: make(map[string]pokeapi.Pokemon),
 	}
 	repl(cfg)
 }
