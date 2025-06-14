@@ -1,15 +1,18 @@
 package main
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 func commandInspect(config *config, name string) error {
 	if name == "" {
-		return fmt.Errorf("argument missing: pokemon name")
+		return errors.New("argument missing: pokemon name")
 	}
 
 	pokemon, caught := config.pokedex[name]
 	if !caught {
-		return fmt.Errorf("you have not caught that pokemon")
+		return errors.New("you have not caught that pokemon")
 	}
 	fmt.Printf("Name: %v\n", pokemon.Name)
 	fmt.Printf("Height: %v dm\n", pokemon.Height)
